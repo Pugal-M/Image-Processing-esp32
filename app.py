@@ -1,4 +1,3 @@
-# add_numbers.py
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -6,8 +5,10 @@ app = Flask(__name__)
 @app.route("/add", methods=["POST"])
 def add_numbers():
     data = request.get_json()
-    a = data.get("a")
-    b = data.get("b")
+
+    # Accept either "a" and "b" OR "num1" and "num2"
+    a = data.get("a", data.get("num1"))
+    b = data.get("b", data.get("num2"))
 
     # Validate
     if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
